@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.checklist.databinding.FragmentSummaryPageBinding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -24,6 +26,8 @@ class SummaryPage : Fragment() {
 
     private var _binding: FragmentSummaryPageBinding? = null
     private val binding get() = _binding!!
+    private lateinit var SummaryItemAdapter: SummaryItemAdapter
+    private lateinit var Summarylist: ArrayList<SummaryItem>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +35,7 @@ class SummaryPage : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
     }
 
     override fun onCreateView(
@@ -39,6 +44,10 @@ class SummaryPage : Fragment() {
     ): View? {
         _binding = FragmentSummaryPageBinding.inflate(inflater,container,false)
         return binding.root
+
+        binding.summaryRV.layoutManager = LinearLayoutManager(context)
+        SummaryItemAdapter = SummaryItemAdapter(Summarylist)
+        _binding!!.summaryRV.adapter = SummaryItemAdapter
     }
 
     companion object {
