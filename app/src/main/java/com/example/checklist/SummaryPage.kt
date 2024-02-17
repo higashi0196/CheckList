@@ -5,22 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.checklist.databinding.FragmentSummaryPageBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [SummaryPage.newInstance] factory method to
- * create an instance of this fragment.
- */
 class SummaryPage : Fragment() {
-    // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
@@ -43,23 +34,22 @@ class SummaryPage : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSummaryPageBinding.inflate(inflater,container,false)
-        return binding.root
 
-        binding.summaryRV.layoutManager = LinearLayoutManager(context)
+        //サンプルデータ
+        val a = SummaryItem("タイトル1","1", ">")
+        val b = SummaryItem("タイトル2","2", ">")
+        val c = SummaryItem("タイトル3","3", ">")
+        val d = SummaryItem("タイトル4","4", ">")
+        Summarylist = arrayListOf(a,b,c,d)
+
+        _binding!!.summaryRV.layoutManager = LinearLayoutManager(context)
         SummaryItemAdapter = SummaryItemAdapter(Summarylist)
         _binding!!.summaryRV.adapter = SummaryItemAdapter
+
+        return binding.root
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SummaryPage.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             SummaryPage().apply {

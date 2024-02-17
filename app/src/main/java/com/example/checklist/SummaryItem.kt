@@ -4,6 +4,6 @@ import android.widget.ImageView
 
 data class SummaryItem(
     val title: String,
-    val number: Int,
-    val arrow: ImageView
+    val number: String,
+    val arrow: String
 )

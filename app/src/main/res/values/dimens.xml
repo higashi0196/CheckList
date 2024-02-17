@@ -13,4 +13,7 @@
     <!-- メインページ新規追加ボタン　横幅 -->
     <dimen name="newbtn_width">120dp</dimen>
 
+    <!-- recycler 左右margin -->
+    <dimen name="rv_margin">10dp</dimen>
+
 </resources>
