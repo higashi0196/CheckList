@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- 上下LinearLayout　高さ　-->
+    <dimen name="bar_height">70dp</dimen>
+
     <!-- 編集ボタン　縦・横サイズ -->
     <dimen name="editbtn_width">50dp</dimen>
-    <dimen name="editbtn_height">40dp</dimen>
+    <dimen name="btns_height">40dp</dimen>
+
+    <!-- メインページ新規追加ボタン　横幅 -->
+    <dimen name="newbtn_width">100dp</dimen>
 
     <!-- メインページフラグメント　高さ -->
     <dimen name="mainfragment_height">580dp</dimen>
@@ -10,8 +17,7 @@
     <!-- メインページ リニアレイアウトpadding -->
     <dimen name="mainlinear_padding">20dp</dimen>
 
-    <!-- メインページ新規追加ボタン　横幅 -->
-    <dimen name="newbtn_width">120dp</dimen>
+
 
     <!-- recycler 左右margin -->
     <dimen name="rv_margin">10dp</dimen>
