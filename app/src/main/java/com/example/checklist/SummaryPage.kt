@@ -34,6 +34,14 @@ class SummaryPage : Fragment() {
         val d = SummaryItem("タイトル4","4", ">")
         Summarylist = arrayListOf(a,b,c,d)
 
+        binding.mainaddbtn.setOnClickListener {
+            parentFragmentManager.beginTransaction().apply {
+                replace(R.id.frameLayout,SummaryAddList())
+                addToBackStack(null)
+                commit()
+            }
+        }
+
         _binding!!.summaryRV.layoutManager = LinearLayoutManager(context)
         SummaryItemAdapter = SummaryItemAdapter(Summarylist)
         _binding!!.summaryRV.adapter = SummaryItemAdapter

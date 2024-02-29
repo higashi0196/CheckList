@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/SummaryFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -60,7 +61,7 @@
             app:layout_constraintVertical_bias="1.0">
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/mainaddbtn"
                 android:layout_width="@dimen/newbtn_width"
                 android:layout_height="@dimen/btns_height"
                 android:layout_gravity="center"
