@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">CheckList</string>
     <string name="editbtn">編集</string>
-    <string name="addlistbtn">新規リスト</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="addlist">新規リスト</string>
+    <string name="cancelbtn">キャンセル</string>
+    <string name="addbtn">追加</string>
 </resources>

@@ -1,15 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/SummaryAddFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".SummaryAddList">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- タイトルバー -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="メインリスト追加ページ" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/addlistbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bar_height"
+            android:layout_gravity="start|center_horizontal"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/cancelbtn"
+                android:layout_width="@dimen/newbtn_width"
+                android:layout_height="@dimen/btns_height"
+                android:layout_marginStart="@dimen/mainlinear_margin"
+                android:padding="0dp"
+                android:text="@string/cancelbtn"
+                app:iconPadding="0dp" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/addtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/addlist"
+                android:textColorHint="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2" />
+
+            <Button
+                android:id="@+id/addbtn"
+                android:layout_width="@dimen/editbtn_width"
+                android:layout_height="@dimen/btns_height"
+                android:layout_marginEnd="@dimen/mainlinear_margin"
+                android:padding="0dp"
+                android:text="@string/addbtn"
+                app:iconPadding="0dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="32dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addlistbar">
+
+            <EditText
+                android:id="@+id/editTextText3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/mainlinear_margin"
+                android:layout_marginEnd="@dimen/mainlinear_margin"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="text"
+                android:text="Name" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

@@ -15,7 +15,7 @@
     <dimen name="mainfragment_height">580dp</dimen>
 
     <!-- メインページ リニアレイアウトpadding -->
-    <dimen name="mainlinear_padding">20dp</dimen>
+    <dimen name="mainlinear_margin">20dp</dimen>
 
 
 
