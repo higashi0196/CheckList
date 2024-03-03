@@ -73,15 +73,16 @@
             app:layout_constraintTop_toBottomOf="@+id/addlistbar">
 
             <EditText
-                android:id="@+id/editTextText3"
+                android:id="@+id/dbtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/mainlinear_margin"
                 android:layout_marginEnd="@dimen/mainlinear_margin"
                 android:layout_weight="1"
                 android:ems="10"
+                android:hint="タイトル"
                 android:inputType="text"
-                android:text="Name" />
+                />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

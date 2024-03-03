@@ -22,6 +22,25 @@ class SummaryAddList : Fragment() {
     ): View? {
         _binding = FragmentSummaryAddListBinding.inflate(inflater,container,false)
 
+        val title = binding.dbtitle.getText()
+
+        binding.addbtn.setOnClickListener {
+            if (binding.dbtitle.text.isNotEmpty()){
+                val DbHelper = DBOpenHelper(requireContext(),title.toString())
+                val db = DbHelper.writableDatabase
+                db.close()
+            }
+            parentFragmentManager.apply {
+                popBackStack()
+            }
+        }
+
+        binding.cancelbtn.setOnClickListener {
+            parentFragmentManager.apply {
+                popBackStack()
+            }
+        }
+
         return binding.root
     }
 

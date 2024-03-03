@@ -42,9 +42,9 @@ class SummaryPage : Fragment() {
             }
         }
 
-        _binding!!.summaryRV.layoutManager = LinearLayoutManager(context)
+        binding.summaryRV.layoutManager = LinearLayoutManager(context)
         SummaryItemAdapter = SummaryItemAdapter(Summarylist)
-        _binding!!.summaryRV.adapter = SummaryItemAdapter
+        binding.summaryRV.adapter = SummaryItemAdapter
 
         return binding.root
     }
