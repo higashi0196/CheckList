@@ -1,10 +1,12 @@
 package com.example.checklist
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.checklist.databinding.FragmentSummaryPageBinding
 
@@ -27,12 +29,16 @@ class SummaryPage : Fragment() {
     ): View {
         _binding = FragmentSummaryPageBinding.inflate(inflater,container,false)
 
-        //サンプルデータ
-        val a = SummaryItem("タイトル1","1", ">")
-        val b = SummaryItem("タイトル2","2", ">")
-        val c = SummaryItem("タイトル3","3", ">")
-        val d = SummaryItem("タイトル4","4", ">")
-        Summarylist = arrayListOf(a,b,c,d)
+        setFragmentResultListener("key") { _, bundle ->
+            val title = bundle.getString("key").toString()
+            val a = SummaryItem(title,"1", ">")
+            Log.d("title",title)
+
+            Summarylist = arrayListOf(a)
+            binding.summaryRV.layoutManager = LinearLayoutManager(context)
+            SummaryItemAdapter = SummaryItemAdapter(Summarylist)
+            binding.summaryRV.adapter = SummaryItemAdapter
+        }
 
         binding.mainaddbtn.setOnClickListener {
             parentFragmentManager.beginTransaction().apply {
@@ -41,10 +47,6 @@ class SummaryPage : Fragment() {
                 commit()
             }
         }
-
-        binding.summaryRV.layoutManager = LinearLayoutManager(context)
-        SummaryItemAdapter = SummaryItemAdapter(Summarylist)
-        binding.summaryRV.adapter = SummaryItemAdapter
 
         return binding.root
     }
