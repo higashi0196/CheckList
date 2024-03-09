@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
+import androidx.fragment.app.activityViewModels
 import com.example.checklist.databinding.FragmentSummaryAddListBinding
+import com.example.checklist.ui.SummaryViewModel
 
 class SummaryAddList : Fragment() {
+
+    private val summaryViewModel: SummaryViewModel by activityViewModels()
 
     private var _binding: FragmentSummaryAddListBinding? = null
     private val binding get() = _binding!!
@@ -23,25 +26,18 @@ class SummaryAddList : Fragment() {
     ): View? {
         _binding = FragmentSummaryAddListBinding.inflate(inflater,container,false)
 
-        val title = binding.dbtitle.getText()
-
         binding.addbtn.setOnClickListener {
-            if (binding.dbtitle.text.isNotEmpty()){
-                val DbHelper = DBOpenHelper(requireContext(),title.toString())
-                val db = DbHelper.writableDatabase
-                db.close()
-            }
-
-            val bundle = Bundle()
-            bundle.putString("key",title.toString())
-//            val frame = SummaryPage()
-//            frame.arguments = bundle
-
+            val titleItem = binding.dbtitle.getText().toString()
+            summaryViewModel.addData(titleItem)
             parentFragmentManager.apply {
-                setFragmentResult("key",bundle)
                 popBackStack()
             }
 
+            if (binding.dbtitle.text.isNotEmpty()){
+                val DbHelper = DBOpenHelper(requireContext(),titleItem)
+                val db = DbHelper.writableDatabase
+                db.close()
+            }
         }
 
         binding.cancelbtn.setOnClickListener {
@@ -49,8 +45,12 @@ class SummaryAddList : Fragment() {
                 popBackStack()
             }
         }
-
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

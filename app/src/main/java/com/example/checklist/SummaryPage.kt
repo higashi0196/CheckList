@@ -6,17 +6,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.checklist.databinding.FragmentSummaryPageBinding
+import com.example.checklist.ui.SummaryViewModel
 
 
 class SummaryPage : Fragment() {
 
+    private val summaryViewModel: SummaryViewModel by activityViewModels()
+
     private var _binding: FragmentSummaryPageBinding? = null
     private val binding get() = _binding!!
-    private lateinit var SummaryItemAdapter: SummaryItemAdapter
-    private lateinit var Summarylist: ArrayList<SummaryItem>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,17 +31,6 @@ class SummaryPage : Fragment() {
     ): View {
         _binding = FragmentSummaryPageBinding.inflate(inflater,container,false)
 
-        setFragmentResultListener("key") { _, bundle ->
-            val title = bundle.getString("key").toString()
-            val a = SummaryItem(title,"1", ">")
-            Log.d("title",title)
-
-            Summarylist = arrayListOf(a)
-            binding.summaryRV.layoutManager = LinearLayoutManager(context)
-            SummaryItemAdapter = SummaryItemAdapter(Summarylist)
-            binding.summaryRV.adapter = SummaryItemAdapter
-        }
-
         binding.mainaddbtn.setOnClickListener {
             parentFragmentManager.beginTransaction().apply {
                 replace(R.id.frameLayout,SummaryAddList())
@@ -48,7 +39,19 @@ class SummaryPage : Fragment() {
             }
         }
 
+        val titledata = summaryViewModel.summarydata
+        Log.d("data",titledata.toString())
+
+        binding.summaryRV.setHasFixedSize(true)
+        binding.summaryRV.layoutManager = LinearLayoutManager(context)
+        binding.summaryRV.adapter = SummaryItemAdapter(titledata)
+
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

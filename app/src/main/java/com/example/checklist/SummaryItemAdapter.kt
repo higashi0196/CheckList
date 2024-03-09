@@ -5,7 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.checklist.databinding.SummaryrecyclerviewBinding
 
-class SummaryItemAdapter(val summarylist: ArrayList<SummaryItem>): RecyclerView.Adapter<SummaryItemAdapter.ViewHolder>() {
+class SummaryItemAdapter(
+     val titles: MutableList<String>
+): RecyclerView.Adapter<SummaryItemAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: SummaryrecyclerviewBinding): RecyclerView.ViewHolder(binding.root)
 
@@ -16,12 +18,11 @@ class SummaryItemAdapter(val summarylist: ArrayList<SummaryItem>): RecyclerView.
     }
 
     override fun onBindViewHolder(viewholder: ViewHolder, position: Int) {
-        val pos = summarylist[position]
-        viewholder.binding.SummaryTitle.text = pos.title
-        viewholder.binding.SummaryNumber.text = pos.number
-        viewholder.binding.SummaryArrow.text = pos.arrow
+        val pos = titles[position]
+        viewholder.binding.SummaryTitle.text = pos
+        viewholder.binding.SummaryNumber.text = position.toString()
     }
 
-    override fun getItemCount(): Int = summarylist.size
+    override fun getItemCount(): Int = titles.size
 
 }
