@@ -16,6 +16,8 @@ class SummaryAddList : Fragment() {
     private var _binding: FragmentSummaryAddListBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var dbHelper:DBOpenHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -28,15 +30,16 @@ class SummaryAddList : Fragment() {
 
         binding.addbtn.setOnClickListener {
             val titleItem = binding.dbtitle.getText().toString()
+            dbHelper = DBOpenHelper(requireContext())
+
             summaryViewModel.addData(titleItem)
             parentFragmentManager.apply {
                 popBackStack()
             }
 
-            if (binding.dbtitle.text.isNotEmpty()){
-                val DbHelper = DBOpenHelper(requireContext(),titleItem)
-                val db = DbHelper.writableDatabase
-                db.close()
+            val dbname = titleItem.trim()
+            if (dbname.isNotEmpty()){
+                dbHelper.createTable(dbname)
             }
         }
 

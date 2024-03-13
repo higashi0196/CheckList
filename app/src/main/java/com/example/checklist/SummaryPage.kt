@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.checklist.databinding.FragmentSummaryPageBinding
 import com.example.checklist.ui.SummaryViewModel
@@ -16,7 +15,6 @@ import com.example.checklist.ui.SummaryViewModel
 class SummaryPage : Fragment() {
 
     private val summaryViewModel: SummaryViewModel by activityViewModels()
-
     private var _binding: FragmentSummaryPageBinding? = null
     private val binding get() = _binding!!
 
@@ -54,10 +52,4 @@ class SummaryPage : Fragment() {
         _binding = null
     }
 
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) ={
-
-        }
-    }
 }

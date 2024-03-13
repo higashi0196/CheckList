@@ -21,8 +21,6 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
-
-
         return binding.root
     }
 
@@ -30,7 +28,7 @@ class DetailsFragment : Fragment() {
 //        val helper = DBOpenHelper(requireContext())
 //        val db = helper.readableDatabase
 //        val dbdata = arrayOf(DBOpenHelper._ID,DBOpenHelper.TITLE,DBOpenHelper.STATUS)
-
+//
 //        val cursor = db.query(
 //            DBOpenHelper.TABLE_NAME,
 //            dbdata,
