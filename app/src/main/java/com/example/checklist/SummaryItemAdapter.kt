@@ -1,13 +1,15 @@
 package com.example.checklist
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.checklist.databinding.SummaryrecyclerviewBinding
 
-class SummaryItemAdapter(
-     val titles: MutableList<String>
-): RecyclerView.Adapter<SummaryItemAdapter.ViewHolder>() {
+class SummaryItemAdapter(private val titles: List<String>):
+    RecyclerView.Adapter<SummaryItemAdapter.ViewHolder>(){
+
+    private var listener1: OnItemClickListener? = null
 
     class ViewHolder(val binding: SummaryrecyclerviewBinding): RecyclerView.ViewHolder(binding.root)
 
@@ -17,10 +19,22 @@ class SummaryItemAdapter(
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(viewholder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val pos = titles[position]
-        viewholder.binding.SummaryTitle.text = pos
-        viewholder.binding.SummaryNumber.text = position.toString()
+        holder.binding.SummaryTitle.text = pos
+        holder.binding.SummaryNumber.text = position.toString()
+
+        holder.binding.root.setOnClickListener {
+            listener1?.onItemClickListener(it,pos)
+        }
+    }
+
+    interface OnItemClickListener{
+        fun onItemClickListener(view: View, pos: String)
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener){
+        this.listener1 = listener
     }
 
     override fun getItemCount(): Int = titles.size

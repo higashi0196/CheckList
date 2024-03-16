@@ -6,7 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.checklist.databinding.FragmentSummaryPageBinding
 import com.example.checklist.ui.SummaryViewModel
@@ -14,7 +17,7 @@ import com.example.checklist.ui.SummaryViewModel
 
 class SummaryPage : Fragment() {
 
-    private val summaryViewModel: SummaryViewModel by activityViewModels()
+    val summaryViewModel: SummaryViewModel by activityViewModels()
     private var _binding: FragmentSummaryPageBinding? = null
     private val binding get() = _binding!!
 
@@ -26,7 +29,7 @@ class SummaryPage : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentSummaryPageBinding.inflate(inflater,container,false)
 
         binding.mainaddbtn.setOnClickListener {
@@ -37,13 +40,24 @@ class SummaryPage : Fragment() {
             }
         }
 
-        val titledata = summaryViewModel.summarydata
-        Log.d("data",titledata.toString())
+        val dbtitle = summaryViewModel.summarydata
+        Log.d("data",dbtitle.toString())
 
+        val adapter = SummaryItemAdapter(dbtitle)
         binding.summaryRV.setHasFixedSize(true)
         binding.summaryRV.layoutManager = LinearLayoutManager(context)
-        binding.summaryRV.adapter = SummaryItemAdapter(titledata)
+        binding.summaryRV.adapter = SummaryItemAdapter(dbtitle)
+        binding.summaryRV.adapter = adapter
 
+        adapter.setOnItemClickListener(object : SummaryItemAdapter.OnItemClickListener {
+            override fun onItemClickListener(view: View, pos: String) {
+                parentFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.frameLayout,DetailsFragment())
+                    .addToBackStack(null)
+                    .commit()
+            }
+        })
         return binding.root
     }
 
