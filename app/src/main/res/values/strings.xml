@@ -6,4 +6,6 @@
     <string name="cancelbtn">キャンセル</string>
     <string name="addbtn">追加</string>
     <string name="arrow">></string>
+    <!-- 詳細ページ戻るbtn -->
+    <string name="rtnbtn">戻る</string>
 </resources>
