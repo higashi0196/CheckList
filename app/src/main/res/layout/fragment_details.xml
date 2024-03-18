@@ -46,5 +46,35 @@
                 android:text="@string/editbtn" />
         </LinearLayout>
 
+        <!-- 詳細追加バー -->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/detaisbtmLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailbar" />
+
+        <LinearLayout
+            android:id="@+id/detaisbtmLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bar_height"
+            android:gravity="right"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <Button
+                android:id="@+id/detailaddbtn"
+                android:layout_width="@dimen/newbtn_width"
+                android:layout_height="@dimen/btns_height"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/mainlinear_margin"
+                android:padding="0dp"
+                android:text="@string/addlist" />
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

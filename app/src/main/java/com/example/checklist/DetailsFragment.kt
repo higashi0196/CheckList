@@ -23,6 +23,11 @@ class DetailsFragment : Fragment() {
     ): View? {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
 
+        binding.rtnbtn.setOnClickListener {
+            parentFragmentManager.apply {
+                popBackStack()
+            }
+        }
 
         return binding.root
     }

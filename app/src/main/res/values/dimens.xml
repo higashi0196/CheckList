@@ -17,8 +17,6 @@
     <!-- メインページ リニアレイアウトpadding -->
     <dimen name="mainlinear_margin">20dp</dimen>
 
-
-
     <!-- recycler 左右margin -->
     <dimen name="rv_margin">10dp</dimen>
 
