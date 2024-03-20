@@ -2,30 +2,30 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/SummaryAddFrame"
+    android:id="@+id/DetailAddFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SummaryAddList">
+    tools:context=".DetailAddList">
 
     <!-- タイトルバー -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <LinearLayout
-            android:id="@+id/addlistbar"
+            android:id="@+id/detailaddbar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/bar_height"
             android:layout_gravity="start|center_horizontal"
             android:gravity="center"
-            android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <Button
-                android:id="@+id/cancelbtn"
+                android:id="@+id/detailcancelbtn"
                 android:layout_width="@dimen/editbtn_width"
                 android:layout_height="@dimen/btns_height"
                 android:layout_gravity="center"
@@ -39,10 +39,10 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/addtitle"
+                android:id="@+id/deitailaddtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/addlist"
+                android:text="@string/detailtitle"
                 android:textColorHint="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -53,7 +53,7 @@
                 android:layout_weight="1" />
 
             <Button
-                android:id="@+id/addbtn"
+                android:id="@+id/detailaddbtn"
                 android:layout_width="@dimen/editbtn_width"
                 android:layout_height="@dimen/btns_height"
                 android:layout_marginEnd="@dimen/mainlinear_margin"
@@ -70,10 +70,10 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addlistbar">
+            app:layout_constraintTop_toBottomOf="@+id/detailaddbar">
 
             <EditText
-                android:id="@+id/dbtitle"
+                android:id="@+id/detailtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/mainlinear_margin"
@@ -81,9 +81,9 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="タイトル"
-                android:inputType="text"
-                />
+                android:inputType="text" />
         </LinearLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -12,10 +12,8 @@ import com.example.checklist.ui.SummaryViewModel
 class SummaryAddList : Fragment() {
 
     private val summaryViewModel: SummaryViewModel by activityViewModels()
-
     private var _binding: FragmentSummaryAddListBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var dbHelper:DBOpenHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {

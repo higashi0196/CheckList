@@ -23,6 +23,14 @@ class DetailsFragment : Fragment() {
     ): View? {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
 
+        binding.detailaddbtn.setOnClickListener {
+            parentFragmentManager.beginTransaction().apply {
+                replace(R.id.frameLayout,DetailAddList())
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
+
         binding.rtnbtn.setOnClickListener {
             parentFragmentManager.apply {
                 popBackStack()

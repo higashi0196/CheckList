@@ -8,4 +8,5 @@
     <string name="arrow">></string>
     <!-- 詳細ページ戻るbtn -->
     <string name="rtnbtn">戻る</string>
+    <string name="detailtitle">追加</string>
 </resources>
