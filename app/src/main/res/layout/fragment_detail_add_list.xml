@@ -39,7 +39,7 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:id="@+id/deitailaddtitle"
+                android:id="@+id/detailbartitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/detailtitle"
@@ -73,7 +73,7 @@
             app:layout_constraintTop_toBottomOf="@+id/detailaddbar">
 
             <EditText
-                android:id="@+id/detailtitle"
+                android:id="@+id/deitailaddtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/mainlinear_margin"

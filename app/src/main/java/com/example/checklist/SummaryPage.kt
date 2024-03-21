@@ -51,9 +51,15 @@ class SummaryPage : Fragment() {
 
         adapter.setOnItemClickListener(object : SummaryItemAdapter.OnItemClickListener {
             override fun onItemClickListener(view: View, pos: String) {
+                val detitle = pos
+                val bundle = Bundle()
+                val frag = DetailsFragment()
+                bundle.putString("key",detitle)
+                frag.arguments = bundle
                 parentFragmentManager
                     .beginTransaction()
-                    .replace(R.id.frameLayout,DetailsFragment())
+                    .replace(R.id.frameLayout,frag)
+//                    .replace(R.id.frameLayout,DetailsFragment())
                     .addToBackStack(null)
                     .commit()
             }

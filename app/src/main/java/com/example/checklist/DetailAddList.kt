@@ -10,6 +10,7 @@ import com.example.checklist.databinding.FragmentDetailAddListBinding
 class DetailAddList : Fragment() {
     private var _binding: FragmentDetailAddListBinding? = null
     private val binding get() = _binding!!
+    private lateinit var dbhelper: DBOpenHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +22,14 @@ class DetailAddList : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDetailAddListBinding.inflate(inflater,container,false)
+
+        val dbhelper = DBOpenHelper(requireContext())
+        val db = dbhelper.writableDatabase
+
+        val detailitem = binding.deitailaddtitle.getText().toString()
+        binding.detailaddbtn.setOnClickListener {
+
+        }
 
         binding.detailcancelbtn.setOnClickListener {
             parentFragmentManager.apply {

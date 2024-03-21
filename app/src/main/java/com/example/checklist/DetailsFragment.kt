@@ -13,8 +13,10 @@ class DetailsFragment : Fragment() {
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
 
     override fun onCreateView(
@@ -22,6 +24,9 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
+
+        val ags = arguments?.getString("key")
+        binding.detailbartitle.text = ags
 
         binding.detailaddbtn.setOnClickListener {
             parentFragmentManager.beginTransaction().apply {
