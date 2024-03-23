@@ -6,18 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.checklist.databinding.FragmentSummaryPageBinding
+import com.example.checklist.ui.DetailViewModel
 import com.example.checklist.ui.SummaryViewModel
-
 
 class SummaryPage : Fragment() {
 
     val summaryViewModel: SummaryViewModel by activityViewModels()
+    val detailviewmodel: DetailViewModel by activityViewModels()
     private var _binding: FragmentSummaryPageBinding? = null
     private val binding get() = _binding!!
 
@@ -41,7 +39,6 @@ class SummaryPage : Fragment() {
         }
 
         val dbtitle = summaryViewModel.summarydata
-        Log.d("data",dbtitle.toString())
 
         val adapter = SummaryItemAdapter(dbtitle)
         binding.summaryRV.setHasFixedSize(true)
@@ -49,17 +46,14 @@ class SummaryPage : Fragment() {
         binding.summaryRV.adapter = SummaryItemAdapter(dbtitle)
         binding.summaryRV.adapter = adapter
 
+        //押下したadapterのタイトルを取得して詳細ページに遷移
         adapter.setOnItemClickListener(object : SummaryItemAdapter.OnItemClickListener {
             override fun onItemClickListener(view: View, pos: String) {
-                val detitle = pos
-                val bundle = Bundle()
-                val frag = DetailsFragment()
-                bundle.putString("key",detitle)
-                frag.arguments = bundle
+                //押下したadapterのタイトルをviewmodelに保存
+                detailviewmodel.setdata(pos)
                 parentFragmentManager
                     .beginTransaction()
-                    .replace(R.id.frameLayout,frag)
-//                    .replace(R.id.frameLayout,DetailsFragment())
+                    .replace(R.id.frameLayout,DetailsFragment())
                     .addToBackStack(null)
                     .commit()
             }

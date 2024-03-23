@@ -27,9 +27,11 @@ class SummaryAddList : Fragment() {
         _binding = FragmentSummaryAddListBinding.inflate(inflater,container,false)
 
         binding.addbtn.setOnClickListener {
+            //テーブル名　取得
             val titleItem = binding.dbtitle.getText().toString()
             dbHelper = DBOpenHelper(requireContext())
 
+            //テーブル名をviewmodelに追加、保存
             summaryViewModel.addData(titleItem)
             parentFragmentManager.apply {
                 popBackStack()

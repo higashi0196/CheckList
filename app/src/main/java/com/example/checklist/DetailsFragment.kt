@@ -1,15 +1,18 @@
 package com.example.checklist
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.activityViewModels
 import com.example.checklist.databinding.FragmentDetailsBinding
+import com.example.checklist.ui.DetailViewModel
 
 class DetailsFragment : Fragment() {
 
+    val detailviewmodel: DetailViewModel by activityViewModels()
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
 
@@ -25,8 +28,24 @@ class DetailsFragment : Fragment() {
     ): View? {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
 
-        val ags = arguments?.getString("key")
-        binding.detailbartitle.text = ags
+        //押下したadapterのタイトルを取得
+        val tblname = detailviewmodel.getdata()
+
+        //詳細データ　読み取り
+        val dbhelper = DBOpenHelper(requireContext())
+        val db = dbhelper.readableDatabase
+        val cursor = db.query(
+            tblname,
+            arrayOf("title","status"),
+            null,
+            null,
+            null,
+            null,
+            null
+        )
+
+        cursor.close()
+        binding.detailbartitle.text = tblname
 
         binding.detailaddbtn.setOnClickListener {
             parentFragmentManager.beginTransaction().apply {
