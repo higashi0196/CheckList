@@ -38,6 +38,7 @@ class SummaryPage : Fragment() {
             }
         }
 
+        //テーブル名取得
         val dbtitle = summaryViewModel.summarydata
 
         val adapter = SummaryItemAdapter(dbtitle)
@@ -49,6 +50,7 @@ class SummaryPage : Fragment() {
         //押下したadapterのタイトルを取得して詳細ページに遷移
         adapter.setOnItemClickListener(object : SummaryItemAdapter.OnItemClickListener {
             override fun onItemClickListener(view: View, pos: String) {
+
                 //押下したadapterのタイトルをviewmodelに保存
                 detailviewmodel.setdata(pos)
                 parentFragmentManager

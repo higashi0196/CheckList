@@ -25,12 +25,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/detailitems"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/rv_margin"
             android:layout_weight="1"
-            android:gravity="center|left"
-            android:text="TextView" />
+            android:gravity="center|left" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

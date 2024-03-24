@@ -2,7 +2,6 @@ package com.example.checklist
 
 import android.content.ContentValues
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +9,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import com.example.checklist.databinding.FragmentDetailAddListBinding
 import com.example.checklist.ui.DetailViewModel
+import com.example.checklist.ui.DetailitemsViewModel
 
 class DetailAddList : Fragment() {
 
     val detailviewmodel: DetailViewModel by activityViewModels()
+    val detailitemsviewmodel: DetailitemsViewModel by activityViewModels()
     private var _binding: FragmentDetailAddListBinding? = null
     private val binding get() = _binding!!
     private lateinit var dbhelper: DBOpenHelper
@@ -46,6 +47,8 @@ class DetailAddList : Fragment() {
             }
 
             db?.insert(dbname,null,values)
+
+            detailitemsviewmodel.itemsData(values.toString())
 
             parentFragmentManager.beginTransaction().apply {
                 replace(R.id.frameLayout,DetailsFragment())
