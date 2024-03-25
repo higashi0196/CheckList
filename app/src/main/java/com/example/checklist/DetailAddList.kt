@@ -48,7 +48,7 @@ class DetailAddList : Fragment() {
 
             db?.insert(dbname,null,values)
 
-            detailitemsviewmodel.itemsData(values.toString())
+            detailitemsviewmodel.itemsData(values["title"].toString())
 
             parentFragmentManager.beginTransaction().apply {
                 replace(R.id.frameLayout,DetailsFragment())
