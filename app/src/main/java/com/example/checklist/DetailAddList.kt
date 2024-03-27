@@ -37,6 +37,7 @@ class DetailAddList : Fragment() {
             //DB　titleカラム
             val detailitem = binding.deitailaddtitle.getText().toString()
             val statusitem: Boolean = false
+
             //押下したadapterのタイトルを取得(テーブル名)
             val dbname = detailviewmodel.getdata()
 

@@ -1,12 +1,16 @@
 package com.example.checklist
 
+import android.annotation.SuppressLint
+import android.database.Cursor
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.checklist.DBOpenHelper.Companion.TITLE
 import com.example.checklist.databinding.FragmentDetailsBinding
 import com.example.checklist.ui.DetailViewModel
 import com.example.checklist.ui.DetailitemsViewModel
@@ -24,6 +28,7 @@ class DetailsFragment : Fragment() {
 
     }
 
+    @SuppressLint("Range")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,22 +37,22 @@ class DetailsFragment : Fragment() {
 
         //押下したadapterのタイトルを取得
         val tblname = detailviewmodel.getdata()
+        binding.detailbartitle.text = tblname
 
         //詳細データ　読み取り
         val dbhelper = DBOpenHelper(requireContext())
         val db = dbhelper.readableDatabase
-        val cursor = db.query(
-            tblname,
-            arrayOf("title","status"),
-            null,
-            null,
-            null,
-            null,
-            null
-        )
 
-        cursor.close()
-        binding.detailbartitle.text = tblname
+//        val cursor = db.query(
+//            tblname,
+//            arrayOf("title","status"),
+//            null,
+//            null,
+//            null,
+//            null,
+//            null
+//        )
+//        cursor.close()
 
         binding.detailaddbtn.setOnClickListener {
             parentFragmentManager.beginTransaction().apply {
@@ -65,13 +70,36 @@ class DetailsFragment : Fragment() {
             }
         }
 
+        val columnname = "title"
+        val sql = "SELECT $columnname FROM $tblname"
+        val rawcursor = db.rawQuery(sql,null)
+
+        val de = mutableListOf<String>()
+        if (rawcursor.moveToFirst()){
+            do {
+                val value = rawcursor.getString(rawcursor.getColumnIndex(columnname))
+                de.add(value)
+                Log.d("Value", value)
+            }while (rawcursor.moveToNext())
+
+        }
+        rawcursor.close()
+
         //詳細データリスト取得
-        val items = detailitemsviewmodel.detailitems
-        val detailadpter = DetailItemsAdapter(items)
+        val detailadpter = DetailItemsAdapter(de)
         binding.detailRV.setHasFixedSize(true)
         binding.detailRV.layoutManager = LinearLayoutManager(context)
-        binding.detailRV.adapter = DetailItemsAdapter(items)
+        binding.detailRV.adapter = DetailItemsAdapter(de)
         binding.detailRV.adapter = detailadpter
+
+
+
+//        val items = detailitemsviewmodel.detailitems
+//        val detailadpter = DetailItemsAdapter(items)
+//        binding.detailRV.setHasFixedSize(true)
+//        binding.detailRV.layoutManager = LinearLayoutManager(context)
+//        binding.detailRV.adapter = DetailItemsAdapter(items)
+//        binding.detailRV.adapter = detailadpter
 
         return binding.root
     }

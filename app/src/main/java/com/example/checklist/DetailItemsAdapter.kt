@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.checklist.databinding.DetailrecyclerviewBinding
 
-class DetailItemsAdapter(private val items: MutableList<String>): RecyclerView.Adapter<DetailItemsAdapter.ViewHolder>() {
+class DetailItemsAdapter(private val items:MutableList<String>): RecyclerView.Adapter<DetailItemsAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: DetailrecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {}
 
@@ -16,8 +16,7 @@ class DetailItemsAdapter(private val items: MutableList<String>): RecyclerView.A
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val tmp = items[position]
-        holder.binding.detailitems.text = tmp
+        holder.binding.detailitems.text = items[position]
     }
 
     override fun getItemCount(): Int = items.size
