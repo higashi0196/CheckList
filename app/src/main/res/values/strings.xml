@@ -9,4 +9,6 @@
     <!-- 詳細ページ戻るbtn -->
     <string name="rtnbtn">戻る</string>
     <string name="detailtitle">追加</string>
+    <string name="changebartitle">変更画面</string>
+    <string name="changebtn">変更</string>
 </resources>
