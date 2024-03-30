@@ -10,8 +10,9 @@ class DetailitemsViewModel: ViewModel() {
         detailitems.putAll(items)
     }
 
-    fun getDetaiData(): String?{
-        return detailitems["title"]
+    fun getDetaiData(): MutableMap<String, String> {
+        return detailitems
+        //return detailitems["title"]
     }
 
 }

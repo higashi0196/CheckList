@@ -22,6 +22,7 @@ class DetailItemsAdapter(private val items:MutableList<String>): RecyclerView.Ad
         holder.binding.detailitems.text = items[position]
 
         holder.binding.root.setOnClickListener{
+            //listener?.onDetailItemClickListener(it,position,items[position])
             listener?.onDetailItemClickListener(it,position,items[position])
         }
     }

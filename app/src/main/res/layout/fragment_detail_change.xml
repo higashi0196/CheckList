@@ -79,8 +79,7 @@
                 android:layout_marginEnd="@dimen/mainlinear_margin"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="タイトル"
-                android:text="Name" />
+                android:hint="タイトル" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.example.checklist
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -80,9 +81,18 @@ class DetailsFragment : Fragment() {
         detailadpter.setOnDetailItemClickListener(object: DetailItemsAdapter.OnDetailItemClickListener{
             override fun onDetailItemClickListener(view: View,id: Int, pos: String) {
 
+                val idCursor = db.rawQuery("SELECT _id FROM $tblname WHERE title = ?",arrayOf(pos))
+
+                var itemId: Int? = null
+                if (idCursor.moveToFirst()) {
+                    itemId = idCursor.getInt(idCursor.getColumnIndex("_id"))
+                }
+                idCursor.close()
+
+
                 //押下したadapter 詳細データ(idカラム、titleカラム)をDetailitemsviewmodelに保存
                 val detailDataMap = mapOf(
-                    "id" to id.toString(),
+                    "id" to itemId.toString(),
                     "title" to pos
                 )
                 detailitemsviewmodel.saveData(detailDataMap)
@@ -92,9 +102,9 @@ class DetailsFragment : Fragment() {
                         .addToBackStack(null)
                         .commit()
                 }
-
             }
-        })
+        }
+    )
 
         return binding.root
     }
