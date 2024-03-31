@@ -21,6 +21,8 @@ class DetailsFragment : Fragment() {
     private val binding get() = _binding!!
     val detailItems = mutableListOf<String>()
 
+    private var radiobtn = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -41,6 +43,7 @@ class DetailsFragment : Fragment() {
         val dbhelper = DBOpenHelper(requireContext())
         val db = dbhelper.readableDatabase
 
+        //変更ボタンイベント
         binding.detailaddbtn.setOnClickListener {
             parentFragmentManager.beginTransaction().apply {
                 replace(R.id.frameLayout,DetailAddList())
@@ -49,6 +52,7 @@ class DetailsFragment : Fragment() {
             }
         }
 
+        //戻るボタンイベント
         binding.rtnbtn.setOnClickListener {
             parentFragmentManager.beginTransaction().apply {
                 replace(R.id.frameLayout,SummaryPage())
@@ -71,12 +75,20 @@ class DetailsFragment : Fragment() {
         }
         rawcursor.close()
 
+
+
         //詳細データリスト取得
         val detailadpter = DetailItemsAdapter(de)
         binding.detailRV.setHasFixedSize(true)
         binding.detailRV.layoutManager = LinearLayoutManager(context)
         binding.detailRV.adapter = DetailItemsAdapter(de)
         binding.detailRV.adapter = detailadpter
+
+        //編集ボタンイベント
+        binding.detaileditbtn.setOnClickListener {
+            radiobtn = !radiobtn
+            detailadpter.setRadioButtonVisibility(radiobtn)
+        }
 
         detailadpter.setOnDetailItemClickListener(object: DetailItemsAdapter.OnDetailItemClickListener{
             override fun onDetailItemClickListener(view: View,id: Int, pos: String) {

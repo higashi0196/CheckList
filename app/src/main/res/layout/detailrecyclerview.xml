@@ -17,16 +17,24 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <CheckBox
+            android:id="@+id/detaildltbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0"
+            android:visibility="gone" />
+
+        <CheckBox
             android:id="@+id/detailscheckBox"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/detailitems"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/rv_margin"
             android:layout_weight="1"
             android:gravity="center|left" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

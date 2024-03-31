@@ -35,14 +35,10 @@ class DetailChange : Fragment() {
 
         val data = detailitemsviewmodel.getDetaiData()["title"]
         val idnum = detailitemsviewmodel.getDetaiData()["id"].toString()
-        //binding.changetitle.setText(data)
-
-        Log.d("テーブル名",summaryViewModel.summarydata.toString())
 
         //テーブル名取得
         val dbname = summaryViewModel.summarydata.toString()
-        //val change = binding.changetitle.text.toString()
-
+        Log.d("テーブル名",dbname)
 
         //詳細データ　更新
         binding.changebtn.setOnClickListener {
@@ -52,11 +48,12 @@ class DetailChange : Fragment() {
 
             val changetext = binding.changetitle.text.toString()
 
+            val dbtitle = summaryViewModel.getdbdata()
             val chagevalue = ContentValues().apply {
                 put("title",changetext)
             }
             db.update(
-                dbname,
+                dbtitle,
                 chagevalue,
                 "_id = ?",
                 arrayOf(idnum)

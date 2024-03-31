@@ -1,5 +1,7 @@
 package com.example.checklist
 
+import android.database.Cursor
+import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -30,6 +32,8 @@ class SummaryPage : Fragment() {
     ): View? {
         _binding = FragmentSummaryPageBinding.inflate(inflater,container,false)
 
+        val tableNames = getAllTableNames() as MutableList<String>
+
         binding.mainaddbtn.setOnClickListener {
             parentFragmentManager.beginTransaction().apply {
                 replace(R.id.frameLayout,SummaryAddList())
@@ -41,15 +45,24 @@ class SummaryPage : Fragment() {
         //テーブル名取得
         val dbtitle = summaryViewModel.summarydata
 
-        val adapter = SummaryItemAdapter(dbtitle)
+        val adapter = SummaryItemAdapter(tableNames)
         binding.summaryRV.setHasFixedSize(true)
         binding.summaryRV.layoutManager = LinearLayoutManager(context)
-        binding.summaryRV.adapter = SummaryItemAdapter(dbtitle)
+        binding.summaryRV.adapter = SummaryItemAdapter(tableNames)
         binding.summaryRV.adapter = adapter
+
+//        val adapter = SummaryItemAdapter(dbtitle)
+//        binding.summaryRV.setHasFixedSize(true)
+//        binding.summaryRV.layoutManager = LinearLayoutManager(context)
+//        binding.summaryRV.adapter = SummaryItemAdapter(dbtitle)
+//        binding.summaryRV.adapter = adapter
 
         //押下したadapterのタイトルを取得して詳細ページに遷移
         adapter.setOnItemClickListener(object : SummaryItemAdapter.OnItemClickListener {
             override fun onItemClickListener(view: View, pos: String) {
+                Log.d("aa",pos)
+                //クリックしたテーブル名を追加
+                summaryViewModel.addData(pos)
 
                 //押下したadapterのタイトルをviewmodelに保存
                 detailviewmodel.setdata(pos)
@@ -66,6 +79,21 @@ class SummaryPage : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun getAllTableNames(): List<String> {
+        val dbhelper = DBOpenHelper(requireContext())
+        val db = dbhelper.writableDatabase
+        val tableNames = mutableListOf<String>()
+        val cursor: Cursor? = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table'", null)
+        cursor?.use {
+            while (it.moveToNext()) {
+                val tableName = it.getString(0)
+                tableNames.add(tableName)
+            }
+        }
+        cursor?.close()
+        return tableNames
     }
 
 }

@@ -32,7 +32,7 @@ class SummaryAddList : Fragment() {
             dbHelper = DBOpenHelper(requireContext())
 
             //テーブル名をviewmodelに追加、保存
-            summaryViewModel.addData(titleItem)
+            //summaryViewModel.addData(titleItem)
             parentFragmentManager.apply {
                 popBackStack()
             }

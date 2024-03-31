@@ -10,6 +10,12 @@ class DetailItemsAdapter(private val items:MutableList<String>): RecyclerView.Ad
 
     private var listener: OnDetailItemClickListener? = null
 
+    private var isRadioButtonVisible = false
+    fun setRadioButtonVisibility(isVisible: Boolean) {
+        isRadioButtonVisible = isVisible
+        notifyDataSetChanged() // リストの更新を通知
+    }
+
     class ViewHolder(val binding: DetailrecyclerviewBinding): RecyclerView.ViewHolder(binding.root) {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,9 +28,10 @@ class DetailItemsAdapter(private val items:MutableList<String>): RecyclerView.Ad
         holder.binding.detailitems.text = items[position]
 
         holder.binding.root.setOnClickListener{
-            //listener?.onDetailItemClickListener(it,position,items[position])
             listener?.onDetailItemClickListener(it,position,items[position])
         }
+
+        holder.binding.detaildltbtn.visibility = if (isRadioButtonVisible) View.VISIBLE else View.GONE
     }
 
     interface OnDetailItemClickListener{

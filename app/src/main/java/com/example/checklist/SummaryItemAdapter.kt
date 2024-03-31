@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.checklist.databinding.SummaryrecyclerviewBinding
 
-class SummaryItemAdapter(private val titles: List<String>):
+class SummaryItemAdapter(private val titles: MutableList<String>):
     RecyclerView.Adapter<SummaryItemAdapter.ViewHolder>(){
 
     private var listener1: OnItemClickListener? = null
