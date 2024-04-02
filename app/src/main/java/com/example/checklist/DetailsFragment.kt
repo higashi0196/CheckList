@@ -2,7 +2,6 @@ package com.example.checklist
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +19,7 @@ class DetailsFragment : Fragment() {
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding!!
     val detailItems = mutableListOf<String>()
+    private lateinit var detailAdapter: DetailItemsAdapter
 
     private var radiobtn = false
 
@@ -75,32 +75,32 @@ class DetailsFragment : Fragment() {
         }
         rawcursor.close()
 
-
-
         //詳細データリスト取得
-        val detailadpter = DetailItemsAdapter(de)
+        val detailAdapter = DetailItemsAdapter(de, tblname) // アダプターを生成しフィールドに代入
         binding.detailRV.setHasFixedSize(true)
         binding.detailRV.layoutManager = LinearLayoutManager(context)
-        binding.detailRV.adapter = DetailItemsAdapter(de)
-        binding.detailRV.adapter = detailadpter
+        binding.detailRV.adapter = detailAdapter
 
-        //編集ボタンイベント
-        binding.detaileditbtn.setOnClickListener {
-            radiobtn = !radiobtn
-            detailadpter.setRadioButtonVisibility(radiobtn)
+        //編集ボタン 削除チェック表示イベント
+        binding.detaildelete.setOnClickListener {
+            detailAdapter.deleteCheckedItems(requireContext())
         }
 
-        detailadpter.setOnDetailItemClickListener(object: DetailItemsAdapter.OnDetailItemClickListener{
+        binding.detaileditbtn.setOnClickListener {
+            radiobtn = !radiobtn
+            detailAdapter.setDetaildleBtnVisible(radiobtn)
+            detailAdapter.deleteCheckedItems(requireContext())
+        }
+
+        detailAdapter.setOnDetailItemClickListener(object: DetailItemsAdapter.OnDetailItemClickListener{
             override fun onDetailItemClickListener(view: View,id: Int, pos: String) {
 
                 val idCursor = db.rawQuery("SELECT _id FROM $tblname WHERE title = ?",arrayOf(pos))
-
                 var itemId: Int? = null
                 if (idCursor.moveToFirst()) {
                     itemId = idCursor.getInt(idCursor.getColumnIndex("_id"))
                 }
                 idCursor.close()
-
 
                 //押下したadapter 詳細データ(idカラム、titleカラム)をDetailitemsviewmodelに保存
                 val detailDataMap = mapOf(
@@ -117,7 +117,6 @@ class DetailsFragment : Fragment() {
             }
         }
     )
-
         return binding.root
     }
 

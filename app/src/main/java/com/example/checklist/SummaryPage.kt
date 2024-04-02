@@ -20,6 +20,7 @@ class SummaryPage : Fragment() {
     val detailviewmodel: DetailViewModel by activityViewModels()
     private var _binding: FragmentSummaryPageBinding? = null
     private val binding get() = _binding!!
+    private var tabledltbtn = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +33,7 @@ class SummaryPage : Fragment() {
     ): View? {
         _binding = FragmentSummaryPageBinding.inflate(inflater,container,false)
 
+        //テーブル名全リスト取得
         val tableNames = getAllTableNames() as MutableList<String>
 
         binding.mainaddbtn.setOnClickListener {
@@ -42,25 +44,21 @@ class SummaryPage : Fragment() {
             }
         }
 
-        //テーブル名取得
-        val dbtitle = summaryViewModel.summarydata
-
         val adapter = SummaryItemAdapter(tableNames)
         binding.summaryRV.setHasFixedSize(true)
         binding.summaryRV.layoutManager = LinearLayoutManager(context)
         binding.summaryRV.adapter = SummaryItemAdapter(tableNames)
         binding.summaryRV.adapter = adapter
 
-//        val adapter = SummaryItemAdapter(dbtitle)
-//        binding.summaryRV.setHasFixedSize(true)
-//        binding.summaryRV.layoutManager = LinearLayoutManager(context)
-//        binding.summaryRV.adapter = SummaryItemAdapter(dbtitle)
-//        binding.summaryRV.adapter = adapter
+        //編集ボタン 削除チェック表示イベント
+        binding.editbtn.setOnClickListener {
+            tabledltbtn = !tabledltbtn
+            adapter.setTableBtnVisibility(tabledltbtn)
+        }
 
         //押下したadapterのタイトルを取得して詳細ページに遷移
         adapter.setOnItemClickListener(object : SummaryItemAdapter.OnItemClickListener {
             override fun onItemClickListener(view: View, pos: String) {
-                Log.d("aa",pos)
                 //クリックしたテーブル名を追加
                 summaryViewModel.addData(pos)
 
@@ -81,6 +79,7 @@ class SummaryPage : Fragment() {
         _binding = null
     }
 
+    //テーブル名全リスト取得
     private fun getAllTableNames(): List<String> {
         val dbhelper = DBOpenHelper(requireContext())
         val db = dbhelper.writableDatabase

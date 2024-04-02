@@ -10,6 +10,11 @@ class SummaryItemAdapter(private val titles: MutableList<String>):
     RecyclerView.Adapter<SummaryItemAdapter.ViewHolder>(){
 
     private var listener1: OnItemClickListener? = null
+    private var tabledltbtnVisible = false
+    fun setTableBtnVisibility(isVisible: Boolean){
+        tabledltbtnVisible = isVisible
+        notifyDataSetChanged()
+    }
 
     class ViewHolder(val binding: SummaryrecyclerviewBinding): RecyclerView.ViewHolder(binding.root)
 
@@ -27,6 +32,7 @@ class SummaryItemAdapter(private val titles: MutableList<String>):
         holder.binding.root.setOnClickListener {
             listener1?.onItemClickListener(it,pos)
         }
+        holder.binding.Summarydltbtn.visibility = if (tabledltbtnVisible) View.VISIBLE else View.GONE
     }
 
     interface OnItemClickListener{

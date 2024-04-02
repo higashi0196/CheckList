@@ -11,4 +11,5 @@
     <string name="detailtitle">追加</string>
     <string name="changebartitle">変更画面</string>
     <string name="changebtn">変更</string>
+    <string name="deletebtn">削除</string>
 </resources>
