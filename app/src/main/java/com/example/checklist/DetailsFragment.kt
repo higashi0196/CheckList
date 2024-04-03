@@ -1,16 +1,20 @@
 package com.example.checklist
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.checklist.databinding.FragmentDetailsBinding
 import com.example.checklist.ui.DetailViewModel
 import com.example.checklist.ui.DetailitemsViewModel
+import com.google.android.material.internal.ViewOverlayImpl
 
 class DetailsFragment : Fragment() {
 
@@ -22,6 +26,7 @@ class DetailsFragment : Fragment() {
     private lateinit var detailAdapter: DetailItemsAdapter
 
     private var radiobtn = false
+    private var deletebtn = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,16 +85,21 @@ class DetailsFragment : Fragment() {
         binding.detailRV.setHasFixedSize(true)
         binding.detailRV.layoutManager = LinearLayoutManager(context)
         binding.detailRV.adapter = detailAdapter
+        detailAdapter.notifyDataSetChanged()
 
         //編集ボタン 削除チェック表示イベント
+        val deletetitle = "削除"
+        val dailogtitle = "メッセージ"
         binding.detaildelete.setOnClickListener {
             detailAdapter.deleteCheckedItems(requireContext())
+            showDialog(requireContext(),dailogtitle,deletetitle)
         }
 
         binding.detaileditbtn.setOnClickListener {
             radiobtn = !radiobtn
             detailAdapter.setDetaildleBtnVisible(radiobtn)
             detailAdapter.deleteCheckedItems(requireContext())
+            binding.detaildelete.visibility = if (deletebtn)  View.INVISIBLE else View.INVISIBLE
         }
 
         detailAdapter.setOnDetailItemClickListener(object: DetailItemsAdapter.OnDetailItemClickListener{
@@ -123,6 +133,26 @@ class DetailsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun showDialog(context: Context,title: String,msg: String){
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(title)
+        builder.setMessage(msg)
+        builder.setPositiveButton("OK"){
+            dialog, which ->
+            if (::detailAdapter.isInitialized) {
+                detailAdapter.deleteCheckedItems(requireContext())
+            }
+            parentFragmentManager.beginTransaction().apply {
+                replace(R.id.frameLayout,DetailsFragment())
+                    .addToBackStack(null)
+                    .commit()
+            }
+            dialog.dismiss()
+        }
+        val dialog = builder.create()
+        dialog.show()
     }
 
 }
