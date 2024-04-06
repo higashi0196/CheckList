@@ -97,9 +97,11 @@ class DetailsFragment : Fragment() {
 
         binding.detaileditbtn.setOnClickListener {
             radiobtn = !radiobtn
+            deletebtn = !deletebtn
+
             detailAdapter.setDetaildleBtnVisible(radiobtn)
-            detailAdapter.deleteCheckedItems(requireContext())
-            binding.detaildelete.visibility = if (deletebtn)  View.INVISIBLE else View.INVISIBLE
+            binding.detaildelete.visibility = if (deletebtn) View.VISIBLE else View.INVISIBLE
+
         }
 
         detailAdapter.setOnDetailItemClickListener(object: DetailItemsAdapter.OnDetailItemClickListener{

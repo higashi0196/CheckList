@@ -8,7 +8,7 @@ import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.example.checklist.databinding.DetailrecyclerviewBinding
 
-class DetailItemsAdapter(private val items:MutableList<String>,val dbtitle: String): RecyclerView.Adapter<DetailItemsAdapter.ViewHolder>() {
+class DetailItemsAdapter(private val items:MutableList<String>, val dbtitle: String): RecyclerView.Adapter<DetailItemsAdapter.ViewHolder>() {
 
     private var listener: OnDetailItemClickListener? = null
     private var detaildlebtnVisible = false
@@ -37,6 +37,7 @@ class DetailItemsAdapter(private val items:MutableList<String>,val dbtitle: Stri
         fun onDetailItemClickListener(view: View,id: Int, pos: String)
     }
 
+    //adapterのクリックイベント
     fun setOnDetailItemClickListener(detaillistener: OnDetailItemClickListener){
         this.listener = detaillistener
     }
@@ -45,6 +46,7 @@ class DetailItemsAdapter(private val items:MutableList<String>,val dbtitle: Stri
         detaildlebtnVisible = isVisible
         notifyDataSetChanged()
     }
+
 
     // チェックボックスの状態を管理するリスト
     private val checkedItems = mutableListOf<Boolean>().apply {
