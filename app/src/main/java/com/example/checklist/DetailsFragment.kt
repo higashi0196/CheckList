@@ -92,6 +92,7 @@ class DetailsFragment : Fragment() {
         val dailogtitle = "メッセージ"
         binding.detaildelete.setOnClickListener {
             detailAdapter.deleteCheckedItems(requireContext())
+            //削除ダイアログ
             showDialog(requireContext(),dailogtitle,deletetitle)
         }
 
@@ -101,7 +102,6 @@ class DetailsFragment : Fragment() {
 
             detailAdapter.setDetaildleBtnVisible(radiobtn)
             binding.detaildelete.visibility = if (deletebtn) View.VISIBLE else View.INVISIBLE
-
         }
 
         detailAdapter.setOnDetailItemClickListener(object: DetailItemsAdapter.OnDetailItemClickListener{

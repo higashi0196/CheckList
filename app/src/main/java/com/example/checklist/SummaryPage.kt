@@ -1,5 +1,7 @@
 package com.example.checklist
 
+import android.app.AlertDialog
+import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
@@ -20,11 +22,12 @@ class SummaryPage : Fragment() {
     val detailviewmodel: DetailViewModel by activityViewModels()
     private var _binding: FragmentSummaryPageBinding? = null
     private val binding get() = _binding!!
+    private lateinit var adapter: SummaryItemAdapter
     private var tabledltbtn = false
+    private var dltbtnvisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -54,6 +57,22 @@ class SummaryPage : Fragment() {
         binding.editbtn.setOnClickListener {
             tabledltbtn = !tabledltbtn
             adapter.setTableBtnVisibility(tabledltbtn)
+
+            //削除ボタン　visibility 切り替え
+            dltbtnvisible = !dltbtnvisible
+            binding.summarydltbtn.visibility = if (dltbtnvisible) View.VISIBLE else View.INVISIBLE
+        }
+
+        //削除ボタンイベント
+        val deletetitle = "削除"
+        val dailogtitle = "メッセージ"
+        val dbtitle = summaryViewModel.getdbdata()
+        binding.summarydltbtn.setOnClickListener {
+//            val dbhelper = DBOpenHelper(requireContext())
+//            val db = dbhelper.writableDatabase
+//            db.execSQL("DROP TABLE IF EXISTS $dbtitle")
+//            db.close()
+            showDialog(requireContext(),dailogtitle,deletetitle)
         }
 
         //押下したadapterのタイトルを取得して詳細ページに遷移
@@ -93,6 +112,26 @@ class SummaryPage : Fragment() {
         }
         cursor?.close()
         return tableNames
+    }
+
+    fun showDialog(context: Context, title: String, msg: String){
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle(title)
+        builder.setMessage(msg)
+        builder.setPositiveButton("OK"){
+                dialog, which ->
+//            if (::adapter.isInitialized) {
+//                adapter.deleteCheckedItems(requireContext())
+//            }
+            parentFragmentManager.beginTransaction().apply {
+                replace(R.id.frameLayout,SummaryPage())
+                    .addToBackStack(null)
+                    .commit()
+            }
+            dialog.dismiss()
+        }
+        val dialog = builder.create()
+        dialog.show()
     }
 
 }

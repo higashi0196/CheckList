@@ -44,4 +44,10 @@ class DBOpenHelper (context: Context):
         db.close()
     }
 
+//    fun deleteTable() {
+//        val db = writableDatabase
+//        db.execSQL("DROP TABLE IF EXISTS $TABLE_NAME")
+//        db.close()
+//    }
+
 }
